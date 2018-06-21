@@ -6,7 +6,7 @@ class HomeController < ApplicationController
       if EthAddress.is_address(params[:search])
         eth_address = EthAddress.find_by(address: params[:search])
       else
-        eth_address = EthAddress.find_by(name: params[:search])
+        eth_address = EthAddress.find_by(name: params[:search].downcase)
       end
 
       if eth_address.present?
@@ -20,7 +20,7 @@ class HomeController < ApplicationController
 
 
   def show
-    eth_address = EthAddress.find_by(name: params[:name])
+    eth_address = EthAddress.find_by(name: params[:name].downcase)
 
     if eth_address.nil?
       redirect_to '/' and return
@@ -31,10 +31,10 @@ class HomeController < ApplicationController
 
 
   def new
-    name = URI.escape(params[:name])
+    name = URI.escape(params[:name]).downcase
     eth_address_by_name = EthAddress.find_by(name: name)
     if eth_address_by_name.present?
-      redirect_to "/?error=#{params[:name]} is taken" and return
+      redirect_to "/?error=#{name} is taken" and return
     end
 
     if !EthAddress.is_address(params[:address])
@@ -46,7 +46,7 @@ class HomeController < ApplicationController
       redirect_to "/?search=#{params[:address]}&error=Address already has nickname" and return
     end
 
-    EthAddress.create!(name: params[:name], address: params[:address])
+    EthAddress.create!(name: name, address: params[:address])
     redirect_to "/?search=#{params[:address]}" and return
   end
 
