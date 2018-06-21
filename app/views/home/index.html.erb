@@ -1,0 +1,22 @@
+ETH<br/>
+<% if @error.present? || params[:error].present? %>
+    <div><%= @error || params[:error] %></div>
+<% end %>
+
+<form action="/new" method="POST">
+  ETH Address: <input type="text" name="address">
+  <br/>
+  Wallet Nickname: <input type="text" name="name">
+  <br/>
+  <input type="submit" value="Register">
+</form>
+<br/>
+DNS<br/>
+<form action="/search" method="POST">
+  Wallet Nickname or ETH Address: <input type="text" name="search" value="<%= @search || params[:search] %>"><br/>
+  <input type="submit" value="Search">
+</form>
+
+<% if @url.present? %>
+    <div><a href="<%= @link %>" target="_blank"><%= @url %></a></div>
+<% end %>

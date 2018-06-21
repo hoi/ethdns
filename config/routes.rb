@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '/s/:name', to: 'home#show'
+  post '/new', to: 'home#new'
+  post '/search', to: 'home#search'
+  root to: 'home#index'
+
 end
