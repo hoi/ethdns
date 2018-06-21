@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       end
 
       if eth_address.present?
-        @url = "http://localhost:3000/s/#{eth_address.name}"
+        @url = "https://ethdns.herokuapp.com/s/#{eth_address.name}"
         @link = "https://etherscan.io/address/#{eth_address.address}"
       else
         @error = "No results"
